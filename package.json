@@ -1,25 +1,24 @@
 {
-  "name": "passport-google-oauth",
-  "version": "0.0.1",
-  "description": "passport-google-oauthv2 w/ google+ ",
-  "main": "./lib/passport-google-oauth/index.js",
+  "name": "passport-google-oauth2",
+  "version": "0.2.0",
+  "description": "Passport strategy for Google OAuth 2.0",
+  "main": "./lib/oauth2.js",
   "directories": {
     "example": "examples",
     "test": "test"
   },
   "dependencies": {
-    "pkginfo": "0.2.x",
-    "passport-oauth2": "~1.1.2"
+    "passport-oauth2": "^1.1.2"
   },
   "devDependencies": {
-    "vows": "0.6.x"
+    "vows": "^0.8.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "make test"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/iliakan/passport-google-oauth.git"
+    "url": "git://github.com/mstade/passport-google-oauth2.git"
   },
   "keywords": [
     "auth",
@@ -28,10 +27,10 @@
     "passportjs",
     "oauth2"
   ],
-  "author": "Ilya Kantor <iliakan@gmail.com>, Alexis Gruet <alexis.gruet@kroknet.com>, Jared Hanson",
-  "license": "ISC",
+  "author": "Marcus Stade <marcus@stade.se>, Ilya Kantor <iliakan@gmail.com>, Alexis Gruet <alexis.gruet@kroknet.com>, Jared Hanson",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/iliakan/passport-google-oauth/issues"
+    "url": "https://github.com/mstade/passport-google-oauth2/issues"
   },
-  "homepage": "https://github.com/iliakan/passport-google-oauth"
+  "homepage": "https://github.com/mstade/passport-google-oauth2"
 }

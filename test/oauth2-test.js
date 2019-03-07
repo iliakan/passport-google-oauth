@@ -1,7 +1,7 @@
 var vows = require('vows');
 var assert = require('assert');
 var util = require('util');
-var GoogleStrategy = require('passport-google-oauth/oauth2');
+var GoogleStrategy = require('../');
 
 
 vows.describe('GoogleStrategy').addBatch({
@@ -78,18 +78,7 @@ vows.describe('GoogleStrategy').addBatch({
       
       // mock
       strategy._oauth2.get = function(url, accessToken, callback) {
-        var body = '{ \
-         "id": "00000000000000", \
-         "email": "fred.example@gmail.com", \
-         "verified_email": true, \
-         "name": "Fred Example", \
-         "given_name": "Fred", \
-         "family_name": "Example", \
-         "picture": "https://lh5.googleusercontent.com/-2Sv-4bBMLLA/AAAAAAAAAAI/AAAAAAAAABo/bEG4kI2mG0I/photo.jpg", \
-         "gender": "male", \
-         "locale": "en-US" \
-        }';
-        
+        var body = JSON.stringify(require('./profile.json'))
         callback(null, body, undefined);
       }
       
@@ -113,10 +102,11 @@ vows.describe('GoogleStrategy').addBatch({
       },
       'should load profile' : function(err, profile) {
         assert.equal(profile.provider, 'google');
-        assert.equal(profile.id, '00000000000000');
+        assert.equal(profile.id, '000000000000000000000');
         assert.equal(profile.displayName, 'Fred Example');
         assert.equal(profile.name.familyName, 'Example');
         assert.equal(profile.name.givenName, 'Fred');
+        assert.equal(profile.email, 'fred.example@gmail.com')
         assert.equal(profile.emails[0].value, 'fred.example@gmail.com');
       },
       'should set raw property' : function(err, profile) {

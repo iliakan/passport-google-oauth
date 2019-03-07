@@ -1,0 +1,9 @@
+{ "sub": "000000000000000000000",
+  "name": "Fred Example",
+  "given_name": "Fred",
+  "family_name": "Example",
+  "picture":
+   "https://lh5.googleusercontent.com/000000000000000000000.jpg",
+  "email": "fred.example@gmail.com",
+  "email_verified": true,
+  "locale": "en" }

@@ -1,4 +1,4 @@
-# Passport-Google-OAuth
+# Passport strategy for Google OAuth 2.0
 
 [Passport](http://passportjs.org/) strategies for authenticating with [Google](http://www.google.com/)
 using ONLY OAuth 2.0.
@@ -11,7 +11,7 @@ unobtrusively integrated into any application or framework that supports
 
 ## Install
 
-    $ npm install kroknet-passport-google-oauth
+    $ npm install passport-google-oauth2
 
 ## Usage of OAuth 2.0
 
@@ -23,12 +23,12 @@ accepts these credentials and calls `done` providing a user, as well as
 `options` specifying a client ID, client secret, and callback URL.
 
 ```Javascript
-var GoogleStrategy = require( 'kroknet-passport-google-oauth' ).Strategy;
+var GoogleStrategy = require( 'passport-google-oauth2' ).Strategy;
 
 passport.use(new GoogleStrategy({
     clientID:     GOOGLE_CLIENT_ID,
     clientSecret: GOOGLE_CLIENT_SECRET,
-    callbackURL: "http://yourdormain:3000/auth/google/callback",
+    callbackURL: "http://yourdomain:3000/auth/google/callback",
     passReqToCallback   : true
   },
   function(request, accessToken, refreshToken, profile, done) {
@@ -39,12 +39,12 @@ passport.use(new GoogleStrategy({
 ));
 ```
 
-#### Note about Local environment 
+#### Note about Local environment
 
 Avoid usage of Private IP, otherwise you will get the device_id device_name issue for Private IP during authentication.
 
 A workaround consist to set up thru the google cloud console a fully qualified domain name such as http://mydomain:3000/ for the callback
-then edit your /etc/hosts on your computer and/or vm to point on your private IP. 
+then edit your /etc/hosts on your computer and/or vm to point on your private IP.
 
 Also both sign-in button + callbackURL has to be share the same url, otherwise two cookies will be created and it will lead to lost your session
 
@@ -58,19 +58,18 @@ application:
 
 ```Javascript
 app.get('/auth/google',
-  passport.authenticate('google', { scope: 
-  	'https://www.googleapis.com/auth/plus.login',
-  	'https://www.googleapis.com/auth/plus.profile.emails.read' }
+  passport.authenticate('google', { scope:
+  	[ 'email', 'profile' ] }
 ));
 
-app.get( '/auth/google/callback', 
-	passport.authenticate( 'google', { 
+app.get( '/auth/google/callback',
+	passport.authenticate( 'google', {
 		successRedirect: '/auth/google/success',
 		failureRedirect: '/auth/google/failure'
 }));
 ```
 
-#### What you will get in profile response ? 
+#### What you will get in profile response ?
 
 ```
    provider         always set to `google`
@@ -86,11 +85,12 @@ app.get( '/auth/google/callback',
    emails
    gender
    picture
+   coverPhoto
 ```
 
 ## Examples
 
-For a complete, working example, refer to the [OAuth 2.0 example](https://github.com/estebita/passport-google-oauth/tree/master/examples/oauth2).
+For a complete, working example, refer to the [OAuth 2.0 example](example).
 
 ## Credits
 

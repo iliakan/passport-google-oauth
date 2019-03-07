@@ -1,13 +1,13 @@
-var express   		 = require( 'express' )
-  , app       		 = express()
-  , server    		 = require( 'http' ).createServer( app ) 
+var express          = require( 'express' )
+  , app              = express()
+  , server           = require( 'http' ).createServer( app ) 
   , passport         = require( 'passport' )
   , util             = require( 'util' )
   , bodyParser       = require( 'body-parser' )
   , cookieParser     = require( 'cookie-parser' )
   , session          = require( 'express-session' )
   , RedisStore       = require( 'connect-redis' )( session )
-  , GoogleStrategy   = require( 'kroknet-passport-google-oauth' ).Strategy;
+  , GoogleStrategy   = require( '../' ).Strategy;
 
 // API Access link for creating client ID and secret:
 // https://code.google.com/apis/console/
@@ -43,7 +43,7 @@ passport.use(new GoogleStrategy({
     //then edit your /etc/hosts local file to point on your private IP. 
     //Also both sign-in button + callbackURL has to be share the same url, otherwise two cookies will be created and lead to lost your session
     //if you use it.
-    callbackURL: "http://yourdormain:3000/auth/google/callback",
+    callbackURL: "http://example.com:3000/auth/google/callback",
     passReqToCallback   : true
   },
   function(request, accessToken, refreshToken, profile, done) {
@@ -100,8 +100,7 @@ app.get('/login', function(req, res){
 //   redirecting the user to google.com.  After authorization, Google
 //   will redirect the user back to this application at /auth/google/callback
 app.get('/auth/google', passport.authenticate('google', { scope: [
-       'https://www.googleapis.com/auth/plus.login',
-       'https://www.googleapis.com/auth/plus.profile.emails.read'] 
+       'email', 'profile'] 
 }));
 
 // GET /auth/google/callback
